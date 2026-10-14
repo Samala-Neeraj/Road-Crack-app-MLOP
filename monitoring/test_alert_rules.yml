@@ -1,0 +1,12 @@
+groups:
+  - name: road-crack-test
+    rules:
+      - alert: RoadCrackTestAlert
+        expr: vector(1)
+        for: 0s
+        labels:
+          severity: warning
+          alert_type: manual_test
+        annotations:
+          summary: Manual Alertmanager delivery test
+          description: This is a temporary test alert. Remove it after confirming delivery.

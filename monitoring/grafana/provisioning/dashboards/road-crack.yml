@@ -1,0 +1,12 @@
+apiVersion: 1
+
+providers:
+  - name: Road Crack Monitoring
+    orgId: 1
+    folder: Road Crack
+    type: file
+    disableDeletion: true
+    editable: true
+    updateIntervalSeconds: 30
+    options:
+      path: ${ROAD_CRACK_GRAFANA_DASHBOARD_PATH}

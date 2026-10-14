@@ -1,0 +1,21 @@
+global:
+  resolve_timeout: 5m
+  smtp_smarthost: ${ALERTMANAGER_SMTP_SMARTHOST}
+  smtp_from: ${ALERTMANAGER_SMTP_FROM}
+  smtp_auth_username: ${ALERTMANAGER_SMTP_USERNAME}
+  smtp_auth_password: ${ALERTMANAGER_SMTP_PASSWORD}
+  smtp_require_tls: true
+
+route:
+  receiver: road-crack-email
+  group_by:
+    - alertname
+  group_wait: 10s
+  group_interval: 1m
+  repeat_interval: 4h
+
+receivers:
+  - name: road-crack-email
+    email_configs:
+      - to: ${ALERTMANAGER_EMAIL_TO}
+        send_resolved: true

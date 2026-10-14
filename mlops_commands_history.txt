@@ -1,0 +1,20 @@
+﻿try { . "c:\Users\NEERAJ SAMALA\AppData\Local\Programs\Microsoft VS Code\7baac39ec3\resources\app\out\vs\workbench\contrib\terminal\common\scripts\shellIntegration.ps1" } catch {}
+(Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned) ; (& "c:\Users\NEERAJ SAMALA\OneDrive\Desktop\Road-Crack-app -MLOP\.venv-1\Scripts\Activate.ps1")
+Set-Location -LiteralPath "C:\Users\NEERAJ SAMALA\OneDrive\Desktop\Road-Crack-app -MLOP"
+.\.venv-1\Scripts\python.exe -m pytest -q -p no:cacheprovider
+$env:DATA_YAML = "C:\path\to\your\Roboflow\dataset\data.yaml"
+$env:SAMPLE_IMAGE = "C:\path\to\your\road-sample.jpg"
+Set-Location -LiteralPath "C:\Users\NEERAJ SAMALA\OneDrive\Desktop\Road-Crack-app -MLOP"
+.\scripts\start_all.ps1 `
+  -PrometheusExe "C:\tools\prometheus\prometheus.exe" `
+  -AlertmanagerExe "C:\tools\alertmanager\alertmanager.exe" `
+  -GrafanaServerExe "C:\tools\grafana\bin\grafana-server.exe"
+.\scripts\start_all.ps1 `
+  -PrometheusExe "C:\tools\prometheus\prometheus.exe" `
+  -AlertmanagerExe "C:\tools\alertmanager\alertmanager.exe" `
+  -GrafanaServerExe "C:\tools\grafana\bin\grafana-server.exe"
+.\scripts\stop_all.ps1
+Get-NetTCPConnection -State Listen -ErrorAction SilentlyContinue |
+  Where-Object { $_.LocalPort -in @(5000, 8000, 8501, 9090, 9093, 3000) } |
+  Select-Object LocalAddress, LocalPort, OwningProcess
+Compress-Archive -Path "C:\Users\NEERAJ SAMALA\OneDrive\Desktop\Road-Crack-app -MLOP" -DestinationPath "C:\Users\NEERAJ SAMALA\OneDrive\Desktop\Road-Crack-Backup.zip"

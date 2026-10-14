@@ -1,0 +1,56 @@
+groups:
+  - name: road-crack-app
+    rules:
+      - alert: RoadCrackHighInferenceLatency
+        expr: histogram_quantile(0.95, sum by (le) (rate(road_crack_inference_latency_seconds_bucket[5m]))) > 3
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: Road crack inference latency is high
+          description: The p95 inference latency has exceeded 3 seconds for 5 minutes.
+
+      - alert: RoadCrackHighInferenceErrorRate
+        expr: (sum(rate(road_crack_inference_errors_total[5m])) / clamp_min(sum(rate(road_crack_inference_requests_total[5m])), 0.001)) > 0.1 and sum(rate(road_crack_inference_requests_total[5m])) > 0
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: Road crack inference error rate is high
+          description: More than 10% of inference requests failed over the last 5 minutes.
+
+      - alert: RoadCrackAppDown
+        expr: up{job="road-crack-streamlit"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: Road crack Streamlit metrics endpoint is down
+          description: Prometheus cannot scrape the Streamlit metrics endpoint.
+
+      - alert: RoadCrackNoInferenceRequests
+        expr: up{job="road-crack-streamlit"} == 1 unless increase(road_crack_inference_requests_total[15m]) > 0
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: No inference requests received
+          description: The Streamlit app has been up but received no inference requests for at least 15 minutes.
+
+      - alert: RoadCrackLowAverageConfidence
+        expr: (road_crack_confidence_score_sum / road_crack_confidence_score_count) < 0.35 and road_crack_confidence_score_count > 20
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: Average detection confidence is unusually low
+          description: The average detection confidence is below 0.35 with more than 20 detections; investigate possible data drift.
+
+      - alert: RoadCrackHighSeveritySpike
+        expr: increase(road_crack_severity_images_total{severity="High"}[10m]) > 10
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: High-severity image count has spiked
+          description: More than 10 high-severity images were detected in 10 minutes. Severity here is based on detection count (4 or more).

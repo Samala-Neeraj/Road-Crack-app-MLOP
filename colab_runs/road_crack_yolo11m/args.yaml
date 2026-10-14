@@ -1,0 +1,5 @@
+﻿task: detect
+mode: train
+model: yolo11m.pt
+data: null
+epochs: 100

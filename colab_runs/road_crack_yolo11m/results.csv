@@ -1,0 +1,2 @@
+﻿epoch,train/box_loss,train/cls_loss,train/dfl_loss,metrics/precision(B),metrics/recall(B),metrics/mAP50(B),metrics/mAP50-95(B),val/box_loss,val/cls_loss,val/dfl_loss
+0,1.0,1.0,1.0,0.5,0.5,0.5,0.5,1.0,1.0,1.0

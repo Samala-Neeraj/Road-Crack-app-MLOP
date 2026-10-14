@@ -1,0 +1,14 @@
+path: C:/Users/NEERAJ SAMALA/OneDrive/Desktop/Road-Crack-app -MLOP/datasets/road-crack-detection-v1
+train: train/images
+val: valid/images
+test: test/images
+
+nc: 4
+names: ['Alligator', 'Edge_Crack', 'Longitudinal', 'Transverse']
+
+roboflow:
+  workspace: neeraj-samala
+  project: road-crack-detection-v1
+  version: 1
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/neeraj-samala/road-crack-detection-v1/dataset/1
